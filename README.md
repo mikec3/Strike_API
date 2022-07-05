@@ -1,4 +1,4 @@
-# Testing Webhooks and websockets
+# Testing STRIKE API
 
 ## Keeps API keys secret
 
