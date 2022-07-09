@@ -1,4 +1,4 @@
-# Testing STRIKE API
+# Testing STRIKE API with a React front end
 
 ## Keeps API keys secret
 

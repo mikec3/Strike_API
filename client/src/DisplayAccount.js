@@ -15,7 +15,6 @@ const DisplayAccount = props => {
 
 			setCurrencyDisplay(
 				props.userInfo.currencies.map(curr=> {
-					console.log(curr.isInvoiceable)
 					let invoiceable = curr.isInvoiceable? 'Invoiceable' : 'Not Invoiceable';
 					return (
 						<div key={curr.currency}>
