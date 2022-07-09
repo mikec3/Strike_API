@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
+import DisplayAccount from './DisplayAccount.js'
 
 const GetAccount = props => {
 
-	const [userInfo, setUserInfo] = useState();
+	const [userInfo, setUserInfo] = useState(false);
+	const [error, setError] = useState(false);
 
 	// send handle to server, server requests account info by handle and returns results
 	const getAccountInfo = (e) => {
@@ -26,7 +28,13 @@ const GetAccount = props => {
 		axios(config)
 		.then((response) => {
 			console.log(JSON.stringify(response.data))
-			setUserInfo(JSON.stringify(response.data));
+			if (response.data != 'error') {
+			setUserInfo(response.data);
+			setError(false);
+			} else {
+			setUserInfo(false);
+			setError('User not found')
+			}
 		})
 		.catch((error) => {
   		console.log(error);
@@ -40,7 +48,8 @@ const GetAccount = props => {
 				<input type='text' name='handleInput'/>
 				<input type='submit' value='Get Account Info' name='submitButton'/>
 			</form>
-			<p> {!userInfo ? "No User Loaded..." : userInfo} </p>
+			{userInfo && <DisplayAccount userInfo = {userInfo} /> }
+			{error}
 		</div>
 	)
 }

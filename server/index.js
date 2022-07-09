@@ -43,6 +43,8 @@ app.post("/api/getAccount", (req, res) => {
 	})
 	.catch((error) => {
 	  console.log(error);
+	  // responding with 'error' because that actual error displays the API token
+	  res.json('error')
 	});
 
 });
