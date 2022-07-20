@@ -1,6 +1,26 @@
 import React, {useState, useEffect} from 'react'
 import CreateInvoice from './CreateInvoice.js'
 import QrDisplay from './QrDisplay.js'
+import CountdownTimer from './CountdownTimer'
+
+//TODO QRCard displays the QRCode and details like expiration countdown, amount, etc...
+const QRCard = (props) => {
+	console.log(props);
+
+	const timeInSeconds = props.invoiceAndQuote.quote.expirationInSec*1000;
+  	const NOW_IN_MS = new Date().getTime();
+
+  	const targetDate = NOW_IN_MS + timeInSeconds;
+
+	return (
+		<div>
+			<p> {props.invoiceAndQuote.quote.targetAmount.currency} : {props.invoiceAndQuote.quote.targetAmount.amount} </p>
+			<QrDisplay lnInvoice={props.invoiceAndQuote.quote.lnInvoice}/>
+			<p> {props.invoiceAndQuote.invoice.state}</p>
+			<CountdownTimer targetDate={targetDate} />
+		</div>
+		)
+}
 
 const DisplayAccount = props => {
 
@@ -8,6 +28,7 @@ const DisplayAccount = props => {
 	const [canReceive, setCanReceive] = useState();
 	const [currencyDisplay, setCurrencyDisplay] = useState();
 	const [qr, setqr] = useState();
+	const [invoiceAndQuote, setInvoiceAndQuote] = useState();
 
 	const passUpInvoice = (invoiceAndQuote) => {
 		//console.log(invoiceAndQuote)
@@ -17,14 +38,9 @@ const DisplayAccount = props => {
 		//console.log(invoiceAndQuote.quote.targetAmount.amount)
 		//console.log(invoiceAndQuote.quote.targetAmount.currency)
 
-		setqr(
-			<div>
-				<p> {invoiceAndQuote.quote.targetAmount.currency} : {invoiceAndQuote.quote.targetAmount.amount} </p>
-				<QrDisplay lnInvoice={invoiceAndQuote.quote.lnInvoice}/>
-				<p> invoiceAndQuote.invoice.state </p>
-				<p> Expires in: {invoiceAndQuote.quote.expirationInSec} </p>
-			</div>
-		)
+		// set the invoice and quote object to the invoiceAndQuote reference, 
+		// will be passed as props and checked for conditional rendering
+		setInvoiceAndQuote(invoiceAndQuote);
 	}
 
 	useEffect(()=>{
@@ -49,6 +65,11 @@ const DisplayAccount = props => {
 					} 
 				}))
 		}
+		// if an invoiceAndQuote have been recieved by this component, display the QR card
+		if (invoiceAndQuote) {
+			// maybe delete this
+			console.log('invoiceAndQuote has been received')
+		}
 	}, [props])
 
 	return (
@@ -56,7 +77,7 @@ const DisplayAccount = props => {
 		<p> User Handle: {handle} </p>
 		<p> Can Receive: {canReceive} </p>
 		{currencyDisplay}
-		{qr}
+		{invoiceAndQuote && <QRCard invoiceAndQuote={invoiceAndQuote}/>}
 		</div>
 		)
 }
