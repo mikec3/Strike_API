@@ -30,6 +30,9 @@ const GetAccount = props => {
 			console.log(JSON.stringify(response.data))
 			if (response.data != 'error') {
 			setUserInfo(response.data);
+
+			// send the userInfo back up to parent component
+			props.passUpUserInfo(response.data);
 			setError(false);
 			} else {
 			setUserInfo(false);
@@ -39,7 +42,6 @@ const GetAccount = props => {
 		.catch((error) => {
   		console.log(error);
 		});
-
 	}
 	
 	return (
@@ -48,7 +50,7 @@ const GetAccount = props => {
 				<input type='text' name='handleInput'/>
 				<input type='submit' value='Get Account Info' name='submitButton'/>
 			</form>
-			{userInfo && <DisplayAccount userInfo = {userInfo} /> }
+			
 			{error}
 		</div>
 	)

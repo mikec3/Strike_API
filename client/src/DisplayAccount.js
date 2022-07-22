@@ -3,7 +3,7 @@ import CreateInvoice from './CreateInvoice.js'
 import QrDisplay from './QrDisplay.js'
 import CountdownTimer from './CountdownTimer'
 
-//TODO QRCard displays the QRCode and details like expiration countdown, amount, etc...
+//QRCard displays the QRCode and details like expiration countdown, amount, etc...
 const QRCard = (props) => {
 	console.log(props);
 

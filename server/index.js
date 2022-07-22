@@ -90,7 +90,7 @@ app.post("/api/createInvoice", async function(req, res) {
 
 		// return the combined invoiceAndQuote Object to the front end
 		res.json(invoiceAndQuote)
-		
+
 	} catch(err) {
 		console.log(err.response.config.data)
 		res.json(err.response.config.data);
@@ -124,13 +124,64 @@ const getQuote = async function(invoiceId) {
 
 
 // webhooks will be posted here
-app.post("/hook", (req, res) => {
+// this is what the webhook from Strike will look like
+/***
+  id: 'd19b9603-2e10-4638-ba18-de961aa4dec1',
+  eventType: 'invoice.updated',
+  webhookVersion: 'v1',
+  data: {
+    entityId: '51a227ff-6de3-4477-adad-e0a5abd28c41',
+    changes: [ 'state' ]
+  },
+  created: '2022-07-20T23:52:59.9786861+00:00'
+}
+***/
+// TODO if data.changes = 'state' then lookup entityId in invoice api and return all paid invoices to clients
+// client will need to parse if their invoice is paid, could do this on server side but I don't want to track all clients
+// right now.
+app.post("/hook", async function(req, res) {
   console.log(req.body) // Call your action on the request here
   res.status(200).end() // Responding is important
 
-  // Send a message up from the server to the clients. This will go to all connected clients
-  io.emit('message', {message: req.body})
+  // exit if it's just an invoice being created
+  if (req.body.eventType == 'invoice.created') {
+  	return;
+  }
+  // check if an invoice has had a state change, if so, check to see if it's paid and send to clients
+  if (req.body.data.changes[0] == 'state') {
+  	console.log(`state changed on ${req.body.data.entityId}`);
+  	let invoiceStatus = await getInvoiceStatus(req.body.data.entityId);
+  	console.log(`invoiceId: ${req.body.data.entityId} : ${invoiceStatus}`)
+  	io.emit('message', {invoiceId: req.body.data.entityId, status: invoiceStatus})
+  }
 })
+
+// TODO check status of invoice by invoiceId
+const getInvoiceStatus = async function(invoiceId) {
+
+	let config = {
+		method: 'get',
+		url: `https://api.strike.me/v1/invoices/${invoiceId}`,
+		headers: {
+			'Accept': 'application/json',
+			'Authorization': process.env.STRIKE_API_KEY
+		}
+	}
+
+	// make call and catch errors
+	// return api response data to calling function
+	try{
+		let response = await axios(config);
+		console.log(response.data)
+		return response.data.state;
+
+	} catch(err) {
+		console.log(err.response.config.data)
+		return err.response.config.data;
+	}
+}
+
+
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
