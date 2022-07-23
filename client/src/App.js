@@ -11,21 +11,32 @@ function App() {
 // establish socket port
 const socket = io();
 
-const [data, setData] = useState();
-const [message, setMessage] = useState();
 const [userInfo, setUserInfo] = useState();
 const [invoiceAndQuote, setInvoiceAndQuote] = useState();
+const [paidIndicator, setPaidIndicator] = useState(false);
 
-useEffect(()=>{
-
-// When a message is sent from the server, setMessage() it to display it on screen.
 // paid invoices come through as {invoiceId: 1234fake-invoice-id, status: 'PAID'}
 socket.on('message', (res) => {
   console.log(res);
-  //setMessage(res.message.Customer);
+  handleSocketMessage(res);
 })
 
-}, [])
+// process the socket message. Check if it's invoiceId matches current invoiceId and check if status is PAID.
+const handleSocketMessage = (res) => {
+  console.log(invoiceAndQuote);
+  console.log(invoiceAndQuote.invoice.invoiceId);
+  console.log(res.invoiceId);
+  console.log(res.status);
+  // check to see if invoiceId matches current invoiceId AND is PAID
+  if (res.invoiceId == invoiceAndQuote.invoice.invoiceId && res.status == 'PAID') {
+    console.log('PAAIIIIDDDDD!!!!!!!');
+    // set paid indicator to true to trigger UI
+    setPaidIndicator(true);
+
+    // delete invoiceAndQuote object, triggers UI
+    setInvoiceAndQuote(null);
+  }
+}
 
 // accepts the userInfo from the GetAccount component
 const acceptUserInfo = (uInfo) => {
@@ -35,19 +46,22 @@ const acceptUserInfo = (uInfo) => {
   setUserInfo(uInfo);
 }
 
-// receives the invoiceAndQuote data objet from displayAccount
+// receives the invoiceAndQuote data object from displayAccount
 const acceptInvoiceAndQuote = (invoiceObject) => {
   console.log(invoiceObject);
   setInvoiceAndQuote(invoiceObject);
+
+  // reset's the paid indicator so that it's no longer rendered.
+  setPaidIndicator(false);
 }
 
   return (
     <div className="App">
-      <p>{!data ? "Loading..." : data} </p>
-      <p>{!message ? "No Message Yet..." : message} </p>
+    <h1> STRIKE API </h1>
       <GetAccount passUpUserInfo={acceptUserInfo}/>
       {userInfo && <DisplayAccount passUpInvoice={acceptInvoiceAndQuote} userInfo = {userInfo} /> }
       {invoiceAndQuote && <QRCard invoiceAndQuote={invoiceAndQuote}/>}
+      {paidIndicator && <h1> PAAIIIDDD!!!!!! </h1>}
     </div>
   );
 }
