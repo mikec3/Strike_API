@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
-import DisplayAccount from './DisplayAccount.js'
 
 const GetAccount = props => {
 
@@ -50,7 +49,6 @@ const GetAccount = props => {
 				<input type='text' name='handleInput'/>
 				<input type='submit' value='Get Account Info' name='submitButton'/>
 			</form>
-			
 			{error}
 		</div>
 	)

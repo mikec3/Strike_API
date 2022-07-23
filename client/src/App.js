@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react'
 import io from 'socket.io-client';
 import GetAccount from './GetAccount.js'
 import DisplayAccount from './DisplayAccount'
+import QRCard from './QRCard'
 
 function App() {
 
@@ -13,6 +14,7 @@ const socket = io();
 const [data, setData] = useState();
 const [message, setMessage] = useState();
 const [userInfo, setUserInfo] = useState();
+const [invoiceAndQuote, setInvoiceAndQuote] = useState();
 
 useEffect(()=>{
 
@@ -33,12 +35,19 @@ const acceptUserInfo = (uInfo) => {
   setUserInfo(uInfo);
 }
 
+// receives the invoiceAndQuote data objet from displayAccount
+const acceptInvoiceAndQuote = (invoiceObject) => {
+  console.log(invoiceObject);
+  setInvoiceAndQuote(invoiceObject);
+}
+
   return (
     <div className="App">
       <p>{!data ? "Loading..." : data} </p>
       <p>{!message ? "No Message Yet..." : message} </p>
       <GetAccount passUpUserInfo={acceptUserInfo}/>
-      {userInfo && <DisplayAccount userInfo = {userInfo} /> }
+      {userInfo && <DisplayAccount passUpInvoice={acceptInvoiceAndQuote} userInfo = {userInfo} /> }
+      {invoiceAndQuote && <QRCard invoiceAndQuote={invoiceAndQuote}/>}
     </div>
   );
 }

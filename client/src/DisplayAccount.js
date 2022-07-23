@@ -3,25 +3,6 @@ import CreateInvoice from './CreateInvoice.js'
 import QrDisplay from './QrDisplay.js'
 import CountdownTimer from './CountdownTimer'
 
-//QRCard displays the QRCode and details like expiration countdown, amount, etc...
-const QRCard = (props) => {
-	console.log(props);
-
-	const timeInSeconds = props.invoiceAndQuote.quote.expirationInSec*1000;
-  	const NOW_IN_MS = new Date().getTime();
-
-  	const targetDate = NOW_IN_MS + timeInSeconds;
-
-	return (
-		<div>
-			<p> {props.invoiceAndQuote.quote.targetAmount.currency} : {props.invoiceAndQuote.quote.targetAmount.amount} </p>
-			<QrDisplay lnInvoice={props.invoiceAndQuote.quote.lnInvoice}/>
-			<p> {props.invoiceAndQuote.invoice.state}</p>
-			<CountdownTimer targetDate={targetDate} />
-		</div>
-		)
-}
-
 const DisplayAccount = props => {
 
 	const [handle, setHandle] = useState();
@@ -30,6 +11,7 @@ const DisplayAccount = props => {
 	const [qr, setqr] = useState();
 	const [invoiceAndQuote, setInvoiceAndQuote] = useState();
 
+	// receives the invoiceAndQuote data from CreateInvoice component
 	const passUpInvoice = (invoiceAndQuote) => {
 		//console.log(invoiceAndQuote)
 		//console.log(invoiceAndQuote.invoice.invoiceId)
@@ -41,6 +23,9 @@ const DisplayAccount = props => {
 		// set the invoice and quote object to the invoiceAndQuote reference, 
 		// will be passed as props and checked for conditional rendering
 		setInvoiceAndQuote(invoiceAndQuote);
+
+		// send the invoiceAndQuote object to parent component
+		props.passUpInvoice(invoiceAndQuote);
 	}
 
 	useEffect(()=>{
@@ -77,7 +62,6 @@ const DisplayAccount = props => {
 		<p> User Handle: {handle} </p>
 		<p> Can Receive: {canReceive} </p>
 		{currencyDisplay}
-		{invoiceAndQuote && <QRCard invoiceAndQuote={invoiceAndQuote}/>}
 		</div>
 		)
 }
