@@ -38,14 +38,16 @@ const CreateInvoice = props => {
 	}
 	
 	return (
-		<div>
+		<div className="CreateInvoice">
 			<form onSubmit={getInvoice}>
-				<label> {props.currency} to Send
+				<div className="InvoiceDetails">
+				<label> <p>{props.currency} to Send </p>
 					<input type='number' step='.00000001' name='amountInput'/>
 				</label>
-				<label> description
-					<input type='text' name='description'/>
+				<label> <p> Description </p>
+					<input id='description' type='text' name='description'/>
 				</label>
+				</div>
 				<input type='submit' value='Create Invoice' name='submitButton'/>
 			</form>
 		</div>

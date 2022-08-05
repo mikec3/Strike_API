@@ -39,8 +39,8 @@ const DisplayAccount = props => {
 				props.userInfo.currencies.map(curr=> {
 					if (curr.isInvoiceable){
 					return (
-						<div key={curr.currency}>
-							<p> {curr.currency} : </p>
+						<div className='CurrencyDisplay' key={curr.currency}>
+							<h3> {curr.currency} </h3>
 							<CreateInvoice currency={curr.currency} 
 								handle={props.userInfo.handle}
 								passUpInvoice={passUpInvoice}
@@ -59,9 +59,16 @@ const DisplayAccount = props => {
 
 	return (
 		<div>
-		<p> User Handle: {handle} </p>
-		<p> Can Receive: {canReceive} </p>
-		{currencyDisplay}
+			<div className='DisplayAccount'>
+				<div>
+					<h3> User Handle: </h3> <p> {handle} </p>
+				</div>
+
+				<div>
+					<h3> Can Receive: </h3> <p> {canReceive} </p>
+				</div>
+			</div>
+		{!invoiceAndQuote && currencyDisplay}
 		</div>
 		)
 }

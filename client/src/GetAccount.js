@@ -46,8 +46,13 @@ const GetAccount = props => {
 	return (
 		<div>
 			<form onSubmit={getAccountInfo}>
-				<input type='text' name='handleInput'/>
+				<div className='InvoiceDetails'>
+					<label> <p> Username </p>
+						<input type='text' name='handleInput'/>
+					</label>
+				</div>
 				<input type='submit' value='Get Account Info' name='submitButton'/>
+				
 			</form>
 			{error}
 		</div>

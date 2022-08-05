@@ -40,10 +40,12 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
 
 
 // returns countdown or expired notice
-const CountdownTimer = ({ targetDate }) => {
+// also floats up expired notice to parent component to conditionally render the QrDisplay
+const CountdownTimer = ({ targetDate, floatUpExpiredNotice }) => {
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
 
   if (days + hours + minutes + seconds <= 0) {
+    floatUpExpiredNotice(true);
     return <ExpiredNotice />;
   } else {
     return (
