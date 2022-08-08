@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import QrDisplay from './QrDisplay.js'
 import CountdownTimer from './CountdownTimer'
+import QRCode from 'react-qr-code'
 
 //QRCard displays the QRCode and details like expiration countdown, amount, etc...
 const QRCard = (props) => {
@@ -24,7 +25,7 @@ const QRCard = (props) => {
 				<React.Fragment>
 					<h3> {props.invoiceAndQuote.quote.targetAmount.currency} : {props.invoiceAndQuote.quote.targetAmount.amount} </h3>
 					<div className = 'QR'>
-						<QrDisplay lnInvoice={props.invoiceAndQuote.quote.lnInvoice}/>
+						<QRCode value={props.invoiceAndQuote.quote.lnInvoice}/>
 					</div>
 					<h3> {props.invoiceAndQuote.invoice.state}</h3>
 				</React.Fragment>
