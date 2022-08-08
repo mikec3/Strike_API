@@ -3,7 +3,7 @@
 # User Experience
 
 ## Enter Username
-[Enter Username Screenshot!](/client/public/Enter_Username.png "Enter Username")
+![Enter Username Screenshot](/client/public/Enter_Username.png "Enter Username")
 
 ## Enter Invoice Details
 [Enter Invoice Details Screenshot!](/client/public/Enter_Invoice.png "Enter Invoice Details")
