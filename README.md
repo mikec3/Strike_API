@@ -1,18 +1,20 @@
 # Testing STRIKE API with a React front end
 
+This app showcases the life cycle of a Strike API payment. A user can search a strike username, generate a lightning invoice QR code for that user, then pay the invoice and be alerted upon successful payment. I imagine the Strike API could be used anywhere payments are happening, as well as to bootstrap a lightning app until devs can integrate invoice generation trustlessly. 
+
 # User Experience
 
 ## Enter Username
 ![Enter Username Screenshot](/client/public/Enter_Username.png "Enter Username")
 
 ## Enter Invoice Details
-[Enter Invoice Details Screenshot!](/client/public/Enter_Invoice.png "Enter Invoice Details")
+![Enter Invoice Details Screenshot](/client/public/Enter_Invoice.png "Enter Invoice Details")
 
 ## Pay Lightning Invoive QR Code
-[Lightning Invoice QR Code Screenshot!](/client/public/QR_Code.png "Lightning Invoice QR Code")
+![Lightning Invoice QR Code Screenshot](/client/public/QR_Code.png "Lightning Invoice QR Code")
 
 ## Payment Success
-[Payment Success Screenshot!](/client/public/Payment_Success.png "Payment Success")
+![Payment Success Screenshot](/client/public/Payment_Success.png "Payment Success")
 
 ## Keeps API keys secret
 
