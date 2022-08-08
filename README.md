@@ -1,5 +1,19 @@
 # Testing STRIKE API with a React front end
 
+# User Experience
+
+## Enter Username
+[Enter Username Screenshot!](/public/Enter_Username.png "Enter Username")
+
+## Enter Invoice Details
+[Enter Invoice Details Screenshot!](/public/Enter_Invoice.png "Enter Invoice Details")
+
+## Pay Lightning Invoive QR Code
+[Lightning Invoice QR Code Screenshot!](/public/QR_Code.png "Lightning Invoice QR Code")
+
+## Payment Success
+[Payment Success Screenshot!](/public/Payment_Success.png "Payment Success")
+
 ## Keeps API keys secret
 
 #### Combines these tutorials:
