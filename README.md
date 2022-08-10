@@ -16,6 +16,11 @@ This app showcases the life cycle of a Strike API payment. A user can search a s
 ## Payment Success
 ![Payment Success Screenshot](/client/public/Payment_Success.png "Payment Success")
 
+## App Flow Diagram
+![App Flow Diagram](/client/public/App_Flow_Diagram.png "App Flow Diagram")
+
+# Dev
+
 ## Keeps API keys secret
 
 #### Combines these tutorials:
