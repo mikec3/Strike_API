@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import CreateInvoice from './CreateInvoice.js'
-import QrDisplay from './QrDisplay.js'
 import CountdownTimer from './CountdownTimer'
 
 const DisplayAccount = props => {

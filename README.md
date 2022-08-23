@@ -2,6 +2,9 @@
 
 This app showcases the life cycle of a Strike API payment. A user can search a strike username, generate a lightning invoice QR code for that user, then pay the invoice and be alerted upon successful payment. I imagine the Strike API could be used anywhere payments are happening, as well as to bootstrap a lightning app until devs can integrate invoice generation trustlessly. 
 
+# Video Tutorial of this App
+https://youtu.be/uUFGYEoRlTw
+
 # User Experience
 
 ## Enter Username

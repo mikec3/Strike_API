@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import QrDisplay from './QrDisplay.js'
 import CountdownTimer from './CountdownTimer'
 import QRCode from 'react-qr-code'
 
